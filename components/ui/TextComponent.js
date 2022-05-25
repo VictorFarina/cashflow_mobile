@@ -8,6 +8,10 @@ const TextComponent = (props) => {
   return (
     <Text
       style={{
+        backgroundColor:props.backgroundColor,
+        position:props.position ?? null,
+        top:props.top,
+        width:props.width ?? null,
         textAlign:props.textAlign ?? 'center',
         fontWeight: props.fontWeight ?? 'normal',
         fontSize: window.height < 700 ? 20 : props.fontSize ,

@@ -1,27 +1,80 @@
-import { StyleSheet, Text, View, SafeAreaView, Pressable } from "react-native";
+import React from "react";
+import { StyleSheet, Text, View, SafeAreaView } from "react-native";
 import TextComponent from "../components/ui/TextComponent";
 import InputComponent from "../components/ui/InputComponent";
-import logo from "../assets/images/cashflow-logo-text.png";
-import LogoComponent from "../components/ui/LogoComponent";
 import ButtonComponent from "../components/ui/ButtonComponent";
 import CheckboxComponent from "../components/ui/CheckboxComponent";
 import LinkComponent from "../components/ui/LinkComponent";
 
+import useInputValidation from "../hooks/useInputValidation";
+
+
 const SignUpScreen = () => {
+  const [user, setUser] = React.useState("");
+  const [error, setError] = React.useState("");
+
+  const changeHandler = (text, type) => {
+    const validationResult = useInputValidation(text, type);
+    if (validationResult != "isValid") {
+      setError({ ...error, [type]: validationResult });
+    } else {
+      setError({ ...error, [type]: null }), setUser({ ...user, [type]: text });
+    }
+    console.log(error);
+  };
+
+  function pressHandler() {
+    console.log(user);
+  }
+
   return (
+    
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-        <TextComponent title='Registro' fontSize={20} fontWeight={'bold'} marginBottom={30} />
-        <InputComponent type={'name'} placeholder='Nombre' height={25}/>
-        <InputComponent type={'name'} placeholder='Apellido' height={25}  />
-        <InputComponent type={'e-mail'} placeholder='Correo' height={25} />
-        <InputComponent type={'password'} placeholder='Contraseña' height={25} />
+        <TextComponent
+          title='Registro'
+          fontSize={20}
+          fontWeight={"bold"}
+          marginBottom={30}
+        />
+
+        <InputComponent
+          onChangeText={(text) => changeHandler(text, "firstName")}
+          error={error.firstName}
+          type={"name"}
+          placeholder='Nombre'
+          height={25}
+        />
+
+        <InputComponent
+          onChangeText={(text) => changeHandler(text, "lastName")}
+          error={error.lastName}
+          type={"name"}
+          placeholder='Apellido'
+          height={25}
+        />
+
+        <InputComponent
+          onChangeText={(text) => changeHandler(text, "email")}
+          error={error.email}
+          type={"e-mail"}
+          placeholder='Correo'
+          height={25}
+        />
+        <InputComponent
+          onChangeText={(text) => changeHandler(text, "password")}
+          error={error.password}
+          type={"password"}
+          placeholder='Contraseña'
+          height={25}
+        />
         <View style={styles.domainInputContainer}>
-          <InputComponent type={'domain'} placeholder='Dominio'  width={"68%"} height={25} />
+          <InputComponent placeholder='Dominio' width={"68%"} height={25} />
           <TextComponent title='@cashflow.do' textAlign='right' />
         </View>
         <View style={styles.termsContainer}>
-          <CheckboxComponent />
+          <CheckboxComponent onCheck={() => setCheck(true)} />
+
           <View style={styles.termsTextContainer}>
             <Text>
               Acepto los{" "}
@@ -33,7 +86,13 @@ const SignUpScreen = () => {
           </View>
         </View>
 
-        <ButtonComponent title='Crear Cuenta' padding={10} marginTop={'10%'} fontWeight={'bold'}/>
+        <ButtonComponent
+          onPress={pressHandler}
+          title='Crear Cuenta'
+          padding={10}
+          marginTop={"10%"}
+          fontWeight={"bold"}
+        />
       </View>
     </SafeAreaView>
   );

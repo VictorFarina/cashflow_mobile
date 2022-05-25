@@ -2,7 +2,7 @@ export default {
     cashFlowBlue:'#0063D1',
     buttonBlue:'#1270E4',
     linkBLue:'#62ACFD',
-    inputgray:'#EBEEF3',
+   
     inputIconColor:'#C9CDD4',
 
     black:'#21374F',
@@ -10,6 +10,9 @@ export default {
 
 
     gray:'#D4D7DD',
+    inputgray:'#EBEEF3',
+    modalGray:'#f1f1f1',
+
     lightGray:'#d3d3d3',
     darkgray:'#898989',
 

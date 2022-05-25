@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { logOutUser } from "../store/actions/userActions";
 
 const MenuScreen = ({ navigation }) => {
+
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -51,11 +52,7 @@ const MenuScreen = ({ navigation }) => {
           <Ionicons name='log-out-outline' color='white' size={30}></Ionicons>
           <TextComponent color='white' title='Log out' fontSize={26} marginLeft={20}/>
         </TouchableOpacity>
-
-
- 
       </View>
-
       <View />
     </View>
   );

@@ -5,6 +5,7 @@ import {
   View,
   Pressable,
   SafeAreaView,
+  Button,
 } from "react-native";
 import useScreenSizes from "../hooks/use-screen-sizes";
 //components--------------------------------
@@ -14,21 +15,29 @@ import TextComponent from "../components/ui/TextComponent";
 import LogoComponent from "../components/ui/LogoComponent";
 import LinkComponent from "../components/ui/LinkComponent";
 import LoadingComponent from "../components/ui/LoadingComponent";
+import DividerComponent from "../components/ui/DividerComponent";
+
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../store/actions/userActions";
+import React from "react";
 
 //Custom hooks
 import useInput from "../hooks/use-input";
 import Colors from "../constants/Colors";
 import logo from "../assets/images/logo.png";
+import { useState } from "react";
 
 const LoginScreen = ({ navigation }) => {
- 
+
+  const [clicked, setClicked] = React.useState(false);
+
   const dispatch = useDispatch();
   const display = useScreenSizes();
+
   const emailValidation = (email) => {
     return email.trim().length > 6 && email.trim().includes("@");
   };
+  
   const email = ({
     value,
     isValid,
@@ -54,9 +63,9 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-    
     <Pressable style={styles.screen} onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
+
         <View style={styles.logoContainer}>
           <LogoComponent
             width={display.small ? 50 : 70}
@@ -102,7 +111,7 @@ const LoginScreen = ({ navigation }) => {
 
         <InputComponent
           type='password'
-          icon='lock-closed' 
+          icon='lock-closed'
           iconSize={display.small ? 20 : 30}
           iconColor={Colors.inputIconColor}
           placeholder={"Password"}
@@ -130,7 +139,7 @@ const LoginScreen = ({ navigation }) => {
             marginTop={40}
             width={"100%"}
             backgroundColor={Colors.buttonBlue}
-            title={'Sign In'}
+            title={"Sign In"}
             fontSize={display.small ? 16 : 20}
             color='#fff'
             type='submit'
@@ -157,22 +166,14 @@ const LoginScreen = ({ navigation }) => {
             our <LinkComponent title='Privacy Policy?' to='' />
           </Text>
         </View>
-        
       </SafeAreaView>
     </Pressable>
-
-
-  
-  
-
-
   );
 };
 
 export default LoginScreen;
 
 const styles = StyleSheet.create({
-  
   screen: {
     flex: 1,
     backgroundColor: "#fff",

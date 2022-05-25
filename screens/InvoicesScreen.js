@@ -1,33 +1,53 @@
-import { StyleSheet, Text, View, FlatList, SafeAreaView, ActivityIndicator } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  SafeAreaView,
+  TouchableOpacity,
+  ActivityIndicator,
+} from "react-native";
 import React from "react";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import Colors from "../constants/Colors";
+
 
 import ListCard from "../components/ui/ListCard";
 import ButtonComponent from "../components/ui/ButtonComponent";
 import TextComponent from "../components/ui/TextComponent";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInvoices } from "../store/actions/userActions";
+import { getUserInvoices } from "../store/actions/invoiceActions";
+import { useState, useEffect } from "react";
+
+
 
 const InvoicesScreen = (props) => {
   
-  const userToken = useSelector((state) => state.userReducer.userToken);
   const dispatch = useDispatch();
-  dispatch(getUserInvoices(userToken));
-  const invoices = useSelector((state) => state.userReducer.userData);
+  const userToken = useSelector((state) => state.userReducer.userToken);
+  const invoices = useSelector((state) => state.invoiceReducer.allInvoices);
+
+  useEffect(() => {
+    dispatch(getUserInvoices(userToken));
+  }, []);
 
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>
-      <View style={styles.header}>
-      <TextComponent title='Invoices' fontWeight='bold' fontSize={20}/>
-      <ButtonComponent form='circle' backgroundColor='white'/>
-      </View>
+        <View style={styles.header}>
+          <TextComponent title='Invoices' fontWeight='bold' fontSize={20} />
 
+         <TouchableOpacity onPress={()=>console.log('add')}>
+        <Ionicons size={40} color={Colors.cashFlowBlue} name='add-circle-outline'></Ionicons>
+        </TouchableOpacity>
+
+
+        </View>
 
         <FlatList
           style={styles.list}
           data={invoices}
           renderItem={({ item }) => (
-        
             <ListCard
               client={item.client}
               currency_code={item.currency_code}
@@ -39,13 +59,9 @@ const InvoicesScreen = (props) => {
               status={item.status}
               navigation={props.navigation}
             />
-
-               
           )}
           keyExtractor={(item) => item.invoiceId}
         />
-
-   
       </View>
     </SafeAreaView>
   );
@@ -67,16 +83,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  header:{
-  flexDirection:'row',
-  width:'90%',
-  alignItems:'center',
-  justifyContent:'space-between',
-  marginBottom:30
+  header: {
+    flexDirection: "row",
+    width: "90%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 30,
   },
 
   list: {
     width: "100%",
   },
-  
 });

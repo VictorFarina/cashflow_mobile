@@ -3,14 +3,16 @@ import TextComponent from "../ui/TextComponent";
 import StatusComponent from "../ui/StatusComponent";
 import React from "react";
 import { NavigationRouteContext } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
 
 const ListCard = (props) => {
+  
+
   const pressHandler = () => {
-    props.navigation.navigate("InvoiceDetailsScreen",{props:props.invoiceId});
+    props.navigation.navigate("InvoiceDetailsScreen",{props:props});
   };
 
   return (
-
 
     <TouchableOpacity style={styles.listCard} onPress={pressHandler}>
       <View style={styles.cardHeader}>

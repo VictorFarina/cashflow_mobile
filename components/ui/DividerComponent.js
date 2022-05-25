@@ -4,6 +4,7 @@ import Colors from "../../constants/Colors";
 
 
 const DividerComponent = (props) => {
+
   return (
     <View
       style={{

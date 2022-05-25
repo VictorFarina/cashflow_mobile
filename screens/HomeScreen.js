@@ -4,6 +4,8 @@ import MenuItemComponent from "../components/ui/MenuItemComponent";
 
 
 const HomeScreen = ({ navigation }) => {
+
+  
   return (
     <SafeAreaView style={styles.screen}>
       <View style={styles.container}>

@@ -1,89 +1,96 @@
-import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, ActivityIndicator, Image } from "react-native";
 import TextComponent from "../ui/TextComponent";
 import LogoComponent from "../ui/LogoComponent";
 import DividerComponent from "../ui/DividerComponent";
 import RowComponent from "../ui/RowComponent";
+import OpeningModalComponent from "../ui/OpeningModalComponent";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { ScrollView } from "react-native-gesture-handler";
 
 const InvoiceComponent = (props) => {
-  console.log(props);
+  const invoice = props.invoice;
+  const senderInfo = props.invoiceSpec.header;
+  const clientInfo = props.invoiceSpec.header;
+  const productInfo = props.invoiceSpec.items[0];
 
   return (
-
-    <View style={styles.invoiceCard}>
-
+    <ScrollView style={styles.invoiceCard}>
       <View style={styles.invoiceHeader}>
         <LogoComponent scale={100} />
-        <TextComponent title={props.companyName} marginTop={20} fontWeight='bold' />
-        <TextComponent title={props.address} />
-        <TextComponent title={props.city} />
+        <Image
+          style={{ width: 100, height: 50 }}
+          source={{
+            uri:
+              "https://engineering.fb.com/wp-content/uploads/2016/04/yearinreview.jpg",
+          }}
+        />
+        <TextComponent
+          title={senderInfo.company_name}
+          marginTop={20}
+          fontWeight='bold'
+        />
+        <TextComponent title={senderInfo.company_address1} />
+        <TextComponent title={clientInfo.company_city} />
       </View>
-
-      <DividerComponent />
-
-      <RowComponent
-        fontSize={14}
-        marginTop={10}
-        titleLeft='Invoice:'
-        fontWeightLeft='bold'
-        titleRight={props.invoiceId}
-      />
-
-      <RowComponent
-        fontSize={14}
-        marginTop={10}
-        titleLeft='Bill To:'
-        fontWeightLeft='bold'
-        titleRight={props.companyName}
-      />
 
       <RowComponent
         fontSize={14}
         marginTop={20}
-        titleLeft='Amount:'
+        titleLeft={"Factura"}
         fontWeightLeft='bold'
-        titleRight={props.total}
+        titleRight={invoice.doc_number}
       />
 
       <RowComponent
         fontSize={14}
         marginTop={10}
-        titleLeft='EXPIRE DATE:'
+        titleLeft='NCF'
         fontWeightLeft='bold'
-        titleRight={props.ncfExpirationDate}
-      />
-
-      <TextComponent
-        textAlign='left'
-        title='Items'
-        fontWeight='bold'
-        marginTop={50}
-      />
-
-      <DividerComponent />
-
-      <RowComponent
-        titleLeft='Product/Service:'
-        fontWeightLeft='bold'
-        titleRight={props.invoiceId}
+        titleRight={senderInfo.ncf}
       />
 
       <RowComponent
-        fontSize={12}
-        titleLeft='Quantity:'
-        fontWeightLeft='bold'
-        titleRight={props.total}
+        fontSize={14}
         marginTop={10}
+        titleLeft='Valido hasta'
+        fontWeightLeft='bold'
+        titleRight={senderInfo.ncf_expiration_date}
       />
 
-      <DividerComponent />
+      <DividerComponent/>
 
+      <OpeningModalComponent
+        headerTitle={{titleLeft:'Cliente', titleRight: clientInfo.client}}
+        titles={[
+          { titleLeft: "RCN",     titleRight: clientInfo.client_rnc },
+          { titleLeft: "Address", titleRight: clientInfo.client_address1 },
+          { titleLeft: "City",    titleRight: clientInfo.client_city },
+          { titleLeft: "Email",   titleRight: clientInfo.client_email },
+          { titleLeft: "Phone",   titleRight: clientInfo.client_phone }
+        ]}
+      />
+
+        <OpeningModalComponent
+        headerTitle={{titleLeft:'Items', titleRight: productInfo.product}}
+        titles={[
+          { titleLeft: "Description",    titleRight: productInfo.description },
+          { titleLeft: "Disc",           titleRight: productInfo.quantity },
+          { titleLeft: "Price",          titleRight: productInfo.price },
+          { titleLeft: "Quantity",       titleRight: productInfo.quantity },
+          { titleLeft: "Tax",            titleRight: productInfo.tax },
+          { titleLeft: "Discount",       titleRight: clientInfo.discount_amount },
+          
+        ]}
+      />
+    
       <RowComponent
         fontSize={20}
-        titleLeft='Total:'
+        titleLeft='Total'
         fontWeightLeft='bold'
-        titleRight={props.total}
+        titleRight={invoice.format_amount}
       />
-    </View>
+    </ScrollView>
   );
 };
 
@@ -121,9 +128,8 @@ const styles = StyleSheet.create({
   },
 
   invoiceHeader: {
-    marginTop:30,
-    justifyContent:'center',
-    alignItems:'center'
+    marginTop: 30,
+    justifyContent: "center",
+    alignItems: "center",
   },
-
 });

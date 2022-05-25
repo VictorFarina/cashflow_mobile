@@ -26,15 +26,16 @@ const ButtonComponent = (props) => {
             : display.large
             ? 25
             : 30,
-        borderRadius: props.form === "circle" ? "50%" : 5,
+        borderRadius: props.form === "circle" ? 50 : 5,
       }}
       onPress={props.onPress}>
-      {props.form === "circle" && (
+
+      {props.form === "circle" ? (
         <Ionicons
           color='blue'
-          name={props.form === "circle" && "add-circle" }
+          name={props.form === "circle" ? "add-circle" : null}
           size={props.height === 25 ? 20 : 30}></Ionicons>
-      )}
+      ) : (null)}
      
 
       <Text

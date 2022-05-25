@@ -71,6 +71,7 @@ const useInput = (fieldName = "", rules = "", validate = null, defaultValue = ""
     reset,
     validationMessages,
   };
+  
 };
 
 export default useInput;

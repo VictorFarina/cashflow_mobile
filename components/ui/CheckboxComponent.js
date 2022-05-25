@@ -4,11 +4,12 @@ import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Colors from "../../constants/Colors";
 
-const CheckboxComponent = () => {
+const CheckboxComponent = (props) => {
+ 
   const [checked, setChecked] = useState(false);
+
   const pressHandler = () => {
     setChecked((prevState) => !prevState);
-
   };
 
   return (
