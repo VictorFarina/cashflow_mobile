@@ -14,10 +14,7 @@ import ButtonComponent from "../components/ui/ButtonComponent";
 import TextComponent from "../components/ui/TextComponent";
 import LogoComponent from "../components/ui/LogoComponent";
 import LinkComponent from "../components/ui/LinkComponent";
-import LoadingComponent from "../components/ui/LoadingComponent";
-import DividerComponent from "../components/ui/DividerComponent";
-
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginUser } from "../store/actions/userActions";
 import React from "react";
 
@@ -30,10 +27,9 @@ import { useState } from "react";
 const LoginScreen = ({ navigation }) => {
 
   const [clicked, setClicked] = React.useState(false);
-
   const dispatch = useDispatch();
   const display = useScreenSizes();
-
+  
   const emailValidation = (email) => {
     return email.trim().length > 6 && email.trim().includes("@");
   };
@@ -65,7 +61,6 @@ const LoginScreen = ({ navigation }) => {
   return (
     <Pressable style={styles.screen} onPress={Keyboard.dismiss}>
       <SafeAreaView style={styles.container}>
-
         <View style={styles.logoContainer}>
           <LogoComponent
             width={display.small ? 50 : 70}
@@ -73,7 +68,6 @@ const LoginScreen = ({ navigation }) => {
             logo={logo}
           />
         </View>
-
         <View
           style={{
             ...styles.titleContainer,
@@ -93,7 +87,6 @@ const LoginScreen = ({ navigation }) => {
             fontSize={display.small ? 12 : 16}
           />
         </View>
-
         <InputComponent
           type='e-mail'
           icon='md-mail'
@@ -108,7 +101,6 @@ const LoginScreen = ({ navigation }) => {
           marginTop={80}
           borderColor={"transparent"}
         />
-
         <InputComponent
           type='password'
           icon='lock-closed'
@@ -125,7 +117,6 @@ const LoginScreen = ({ navigation }) => {
           errorMessage="The field can't be empty"
           borderColor={"transparent"}
         />
-
         <View style={{ width: "100%" }}>
           <LinkComponent
             title='Forgot Password?'
