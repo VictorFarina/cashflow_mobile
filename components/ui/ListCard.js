@@ -2,8 +2,7 @@ import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from "rea
 import TextComponent from "../ui/TextComponent";
 import StatusComponent from "../ui/StatusComponent";
 import React from "react";
-import { NavigationRouteContext } from "@react-navigation/native";
-import { useDispatch, useSelector } from "react-redux";
+
 
 const ListCard = (props) => {
   

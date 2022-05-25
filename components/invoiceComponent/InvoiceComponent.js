@@ -9,10 +9,13 @@ import { useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 
 const InvoiceComponent = (props) => {
+
   const invoice = props.invoice;
   const senderInfo = props.invoiceSpec.header;
   const clientInfo = props.invoiceSpec.header;
   const productInfo = props.invoiceSpec.items[0];
+
+
 
   return (
     <ScrollView style={styles.invoiceCard}>

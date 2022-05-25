@@ -7,6 +7,6 @@ export default useScreenSizes = () => {
     small:  useWindowDimensions().height  < 700,
     medium: useWindowDimensions().height  < 800,
     large:  useWindowDimensions().height  < 900,
-    iPad: Platform.OS.isPad
+    iPad:   Platform.OS.isPad
   };
 };
